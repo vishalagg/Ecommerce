@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+  {{ title }}
+{% endblock %}
+
+{% block content %}
+  <div class="text-center">
+    </div>
+    <div class="conatiner">
+      <div class="row">
+        <div class="col">
+          <h2>{{title}}</h2>
+          <div class="col-sm-6 col-12">
+            <form method="POST">{% csrf_token %}
+              {{ form }}
+              <input type="submit" name="btn" class="btn btn-default">
+            </form>
+        </div>
+      </div>
+  </div>
+{% endblock %}

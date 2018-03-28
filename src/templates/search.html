@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+	<div class="container">
+		<div class="row">
+			{% if request.GET.q %}
+				<div class="col-12">
+					Results for <b>{{ request.GET.q }}</b>
+				</div> 
+				<hr/>
+				<br/>
+				{% if object_list %}
+				{% for i in object_list %}
+				<div class="col">
+					<div class="card border-light mb-3" style="width: 12rem;">
+  						<a href="{{ i.get_absolute_url }}"><img src="{{ i.image.url }}" class = 'image-fluid' alt="Card image" height="220px" width="185px"></a>
+  						<div class="card-body text-center">
+						    <h5 class="card-title">{{ i.title|truncatewords:2  }}</h5>
+    						<p class="card-text">{{ i.description|truncatewords:6 }}</p>
+    						<h6 style="color: #7D1935;margin-bottom: 0px ">&#8377;{{ i.price }}</h6>
+    						<span style="font-size:12px"><del>&#8377;{{ i.price|add:"200"}}</del></span>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+				{% else %}
+				<h2>No Product found..Try another :(</h2>
+				{% endif %}
+			{% else %}
+				{% for i in object_list %}
+				<div class="col">
+					<div class="card border-light mb-3" style="width: 12rem;">
+  						<a href="{{ i.get_absolute_url }}"><img src="{{ i.image.url }}" class = 'image-fluid' alt="Card image" height="220px" width="185px"></a>
+  						<div class="card-body text-center">
+						    <h5 class="card-title">{{ i.title|truncatewords:2  }}</h5>
+    						<p class="card-text">{{ i.description|truncatewords:6 }}</p>
+    						<h6 style="color: #7D1935;margin-bottom: 0px ">&#8377;{{ i.price }}</h6>
+    						<span style="font-size:12px"><del>&#8377;{{ i.price|add:"200"}}</del></span>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}

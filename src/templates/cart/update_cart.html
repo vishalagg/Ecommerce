@@ -1,0 +1,17 @@
+{% load static %}
+<form method='POST' action='{% url "cartupdate" %}'>{% csrf_token %}
+	<input type='hidden' name='product_id' value={{ product.id }} />
+	{% if product in cart.products.all %}
+	 {% if flag %}
+	 <input type='hidden' name='reToCart' value={{ flag }} />
+	 {% endif %}
+	 <button type='submit' class='btn btn-light'>{% if not flag %}<b>Added to cart. Remove?</b>{% endif %}
+	 	<img src='{% static "img/trash.png" %}' height="35px" width=auto style="margin-bottom: 4px"/>
+	 </button>
+	{% else %}
+
+	 <button type='submit' class="btn btn-light">
+	 	<img src='{% static "img/cart3.png" %}' height="35px" width=auto style="margin-bottom: 4px"/><b style="margin-left: 5px;">Add To Cart</b>
+	 </button>
+	{% endif %}
+</form>

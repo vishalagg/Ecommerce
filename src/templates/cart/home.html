@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container" style="padding:20%;padding-top: 3%">
+<div class="col-12">
+	<b>Items in the cart:</b>
+</div>
+<p></p>
+
+{% if cart.products.exists%}
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Item</th>
+      <th scope="col">Price(&#8377)</th>
+      <th scope="col">Remove?</th>
+    </tr>
+  </thead>
+  <tbody>
+  	{% for i in cart.products.all %}
+    <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+      <td><a href="{{ i.get_absolute_url }}">{{ i.title|truncatewords:3 }}</a></td>
+      <td>{{ i.price }}<span style="font-size:12px">&nbsp <del>{{ i.price|add:"200"}}</del></span></td>
+      <td>{% include 'cart/update_cart.html' with product=i cart=cart flag=True %}</td>
+    </tr>
+    {% endfor %}
+    <tr  class="thead-light">
+      <th scope="row"></th>
+      <th>Total</th>
+      <th>&#8377 {{ total }}<span style="font-size:12px">&nbsp <del>&#8377 {{ total|add:discount}}</del></span></td></th>
+      <th></th>
+    </tr>
+    </tbody>
+</table>
+{% else %}
+	<hr />
+    <h1>&nbsp&nbsp Your Cart is empty :(</h1>
+{% endif %}
+</div>
+{% endblock %}
